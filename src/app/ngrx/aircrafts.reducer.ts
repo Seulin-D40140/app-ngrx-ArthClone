@@ -16,7 +16,8 @@ export const initialState: AircraftsState = adapter.getInitialState({
     dataState: AircraftsStateEnum.INITIAL,
     ids: [],
     entities: {},
-    isLogin:false
+    isLogin:false,
+    user : []
 });
 
 export function AircraftsReducer(state: AircraftsState = initialState, action: Action) : AircraftsState {
@@ -28,7 +29,6 @@ export function AircraftsReducer(state: AircraftsState = initialState, action: A
             return adapter.removeOne((<AircraftsActions> action).payload, state);
 
         case AircraftsActionsTypes.GET_ALL_AIRCRAFTS:
-            console.log("loading...");
             return {...state, dataState: AircraftsStateEnum.LOADING}
 
         case AircraftsActionsTypes.GET_ALL_AIRCRAFTS_SUCCESS:
@@ -65,16 +65,13 @@ export function AircraftsReducer(state: AircraftsState = initialState, action: A
             return{...state, dataState: AircraftsStateEnum.ERROR, errorMessage:(<AircraftsActions> action).payload};
 
         case AuthenticateActionsTypes.LOGING:
-            console.log('login effect loading')
             return{...state, dataState: AircraftsStateEnum.LOADING};
 
         case AuthenticateActionsTypes.LOGING_SUCCESS:
-            console.log('login effect loaded')
             return{...state, dataState: AircraftsStateEnum.LOADED, isLogin: true}; 
 
         case AuthenticateActionsTypes.LOGING_ERROR:
-            console.log('login effect error')
-            return{...state, dataState: AircraftsStateEnum.ERROR, errorMessage:(<loginActions> action).payload};
+            return{...state, dataState: AircraftsStateEnum.ERROR, isLogin: false , errorMessage:(<loginActions> action).payload};
 
         case AuthenticateActionsTypes.LOGOUT:
             return{...state, dataState: AircraftsStateEnum.LOADING};

@@ -63,11 +63,15 @@ export class AircraftsEffects {
     getLoginEffects : Observable<Action> = createEffect(
         () => this.effectActions.pipe(
             ofType(AuthenticateActionsTypes.LOGING),
-            mergeMap((action : loginUserAction) => {
-                console.log("action" , action.payload)
+            mergeMap((action : loginUserAction) => 
+            {
                 return this.userservice.getUsers(action.payload).pipe(
-                    map((user) => new loginUserActionSuccess(user)),
-                    catchError((err) => of(new loginUserActionError(err.message)))
+                        map((user) => {
+                            if(Array.isArray(user) && user.length === 0)
+                            { return new loginUserActionError('impossible de ce connecter')}
+                            else
+                            { return new loginUserActionSuccess(user)}}),
+                        catchError((err) => of(new loginUserActionError(err.message)))
                 )
             })
         )

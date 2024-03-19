@@ -1,6 +1,7 @@
 import { EntityState } from "@ngrx/entity";
 import { Aircraft } from "../model/aircraft.model";
 import { Operation } from "../model/operation.model";
+import { User } from "../model/user.model";
 
 export enum AircraftsStateEnum {
     LOADING = "Loading",
@@ -14,6 +15,7 @@ export interface AircraftsState extends EntityState<Operation>{
     errorMessage: string,
     dataState: AircraftsStateEnum,
     isLogin: boolean
+    user : User[]
 }
 
 export const initState: AircraftsState = {
@@ -22,5 +24,6 @@ export const initState: AircraftsState = {
     dataState: AircraftsStateEnum.INITIAL,
     ids: [],
     entities: {},
-    isLogin: false
+    isLogin: false,
+    user : []
 }

@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(user : User): void {
-    console.log('login')
+  login(user : User): void 
+  {
     this.store.dispatch(new loginUserAction(user));
   }
 }
