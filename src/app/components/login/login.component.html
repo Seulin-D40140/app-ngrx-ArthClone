@@ -1,5 +1,6 @@
-<div class="container">
-    <div class="col-md-3">
+<div class="container" *ngIf="(isLogin$$ | async) as islogin; else otherContent"></div>
+<ng-template #otherContent>
+    <div class="container col-md-3">
         <form [formGroup]="myForm" (ngSubmit)="login(myForm.value)">
         <div class="form-group">
             <label class="control-label">Email : </label>
@@ -12,7 +13,7 @@
         <div>
             <!-- <p *ngIf="isLoginFailed" class="text-danger">Email or password incorrect.</p> -->
         </div>
-            <button type="submit" class="btn btn-primary mt-2 " [disabled]="!myForm.valid">Connexion</button>
+            <button type="submit" class="btn btn-primary mt-2 " routerLink="/aircrafts" [disabled]="!myForm.valid">Connexion</button>
         </form>
     </div>
-</div>
+</ng-template>
